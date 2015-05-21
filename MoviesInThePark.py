@@ -32,13 +32,6 @@ with open("MovieParks.tsv", "w") as f:
                 #not every item has Amenities listed
                 Amenities = sibling.replace("Amenities: ","")
                 master_dict['Amenities'] = Amenities.encode('utf-8')
-                
-'''
-Not sure why this doesn't work but encoding every entry as I did above works... 
-
-        for k,v in master_dict.items():
-            if v is not None:
-                master_dict[k] = ",".join(v).encode("utf-8") if isinstance (v, list) else v.encode("utf-8")'''
 
         writer.writerow(master_dict)
             
