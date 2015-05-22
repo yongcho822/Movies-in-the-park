@@ -9,7 +9,7 @@ URL = 'http://www.thrillist.com/entertainment/chicago/free-outdoor-summer-movies
 html = urlopen(URL).read()
 soup = BeautifulSoup(html, "lxml")
 
-with open("MovieParks.tsv", "w") as f:
+with open("MovieParksTest.tsv", "w") as f:
     categories = ['Location', 'Movie Title', 'Date', 'Amenities']
     writer = csv.DictWriter(f, delimiter = '\t', fieldnames = categories)
     writer.writeheader()
@@ -23,17 +23,17 @@ with open("MovieParks.tsv", "w") as f:
             if sibling.name == "strong":                
                 break
             if sibling.name == "em":
-                MovieTitle = sibling.text.encode('utf-8')
+                MovieTitle = sibling.text.encode('utf-8').replace('"', '').strip('\n')
                 master_dict['Movie Title'] = MovieTitle
                 for sibling2 in sibling.next_siblings:
                     if sibling2.name == "strong" or sibling2.name == "em":
                         break
                     if 'Location:' in sibling2:     
                         Location = sibling2.replace("Location: ","") + ", Chicago "
-                        master_dict['Location'] = Location.encode('utf-8')
+                        master_dict['Location'] = Location.encode('utf-8').replace('"', '').strip('\n')
                     if 'Amenities:' in sibling2:
                         Amenities = sibling2.replace("Amenities: ","")
-                        master_dict['Amenities'] = Amenities.encode('utf-8')
+                        master_dict['Amenities'] = Amenities.encode('utf-8').replace('"', '').strip('\n')
                 writer.writerow(master_dict)
                 master_dict = {}
                 master_dict['Date'] = Date   
