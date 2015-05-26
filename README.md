@@ -12,4 +12,4 @@ Order of execution:
 
 4. MoviesCombined.py - script to group by Location column so that all movies with the same Location are combined.
 
-5.  TSV to GeoJSON.py - script to convert TSV file into GeoJSON format.
+5.  (Optional) TSV to GeoJSON.py - script to convert TSV file into GeoJSON format.
